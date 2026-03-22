@@ -1,6 +1,6 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from routers import auth_routes
 
 app = FastAPI()
 
@@ -12,14 +12,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-router = APIRouter()
-
-class TestRequest(BaseModel):
-    message: str
-
-@router.post("/test")
-def test(data: TestRequest):
-    print(data.message)
-    return {"message": "Backend Response"}
-
-app.include_router(router)
+app.include_router(auth_routes.router)
