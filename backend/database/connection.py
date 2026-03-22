@@ -5,10 +5,10 @@ from mysql.connector import ClientFlag, pooling
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "../.env"))
 
 dbconfig = {
-    "host": os.getenv("DB_HOST", "localhost"),
-    "user": os.getenv("DB_USER", "root"),
-    "password": os.getenv("DB_PASSWORD", "password"),
-    "database": os.getenv("DB_NAME", "erfinder"),
+    "host": os.getenv("DB_HOST"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "database": os.getenv("DB_NAME"),
     "use_pure": True,
     "client_flags": [ClientFlag.MULTI_STATEMENTS],
 }

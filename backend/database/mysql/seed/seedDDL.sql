@@ -1,21 +1,24 @@
-CREATE TABLE Groups (
+DROP DATABASE IF EXISTS taskreminder;
+CREATE DATABASE taskreminder;
+USE taskreminder;
+
+CREATE TABLE user_groups (
     group_id INT AUTO_INCREMENT PRIMARY KEY,
-    group_key VARCHAR(64) UNIQUE NOT NULL
-    group_name VARCHAR(255) NOT NULL,
-    PRIMARY KEY (group_id)
+    group_key VARCHAR(255) UNIQUE NOT NULL,
+    group_name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Users (
+CREATE TABLE users (
     group_id INT NOT NULL,
     user_id INT AUTO_INCREMENT NOT NULL,
     name VARCHAR(255) NOT NULL,
-    role ENUM('member','admin') NOT NULL DEFAULT 'member',
     phone_number VARCHAR(20),
+    allow_others_to_use_phone BOOLEAN DEFAULT FALSE NOT NULL,
     PRIMARY KEY (user_id),
-    FOREIGN KEY (group_id) REFERENCES Groups(group_id) ON DELETE CASCADE
+    FOREIGN KEY (group_id) REFERENCES user_groups(group_id) ON DELETE CASCADE
 );
 
-CREATE TABLE Tasks(
+CREATE TABLE tasks (
     group_id INT NOT NULL,
     task_id INT AUTO_INCREMENT NOT NULL,
     name VARCHAR(255) NOT NULL,
@@ -25,7 +28,7 @@ CREATE TABLE Tasks(
     type ENUM('checkbox','timer') NOT NULL,
     doNotification BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (task_id),
-    FOREIGN KEY (group_id) REFERENCES Groups(group_id) ON DELETE CASCADE
+    FOREIGN KEY (group_id) REFERENCES user_groups(group_id) ON DELETE CASCADE
 );
 
 CREATE TABLE task_notification_users (
