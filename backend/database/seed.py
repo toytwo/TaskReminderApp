@@ -15,7 +15,7 @@ def run_sql_file(filename: str):
 
 if __name__ == "__main__":
     print("Seeding")
-    run_sql_file("seedDDL.sql")\
+    run_sql_file("seedDDL.sql")
     
     run_sql_file("seedDummyData.sql")
 
